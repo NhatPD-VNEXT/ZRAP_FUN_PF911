@@ -1,0 +1,93 @@
+//************************************************************************
+//*  [変更履歴]                                                          *
+//*   バージョン情報 ：V1.00  2024/12/04  NTZ TA             NWFK900068  *
+//*   変更内容       ：新規作成                                          *
+//*----------------------------------------------------------------------*
+//*   バージョン情報 ：V1.01  2025/02/11  NTZ WIND           NWFK900068  *
+//*   変更内容       ：問題ログの問題を修正しました                      *
+//*----------------------------------------------------------------------*
+//*   バージョン情報 ：V1.02  2025/06/18  NTZ.Wongwhizn            NWFK900068 *
+//*   変更内容       ： Detail Design V1.03 を修正する                        *
+//*----------------------------------------------------------------------*
+//*   バージョン情報 ：V9.99  YYYY/MM/DD  変更者             移送番号    *
+//*   変更内容       ：                                                  *
+//************************************************************************
+//************************************************************************
+//* [Change History]                                                     *
+//* Version Information: 2024/12/04 NTZ TA                   NWFK900068  *
+//* Change Details: Newly created                                        *
+//*----------------------------------------------------------------------*
+//* Version Information: V1.01  2025/02/11  NTZ WIND         NWFK900068  *
+//* Change Details: Fixed the issue in the issue log.                    *
+//*----------------------------------------------------------------------*
+//* Version Information: V1.02 2025/06/18 NTZ.Wongwhizn       NWFK900068 *
+//* Change Details: update Detail Design V1.03                           *
+//*----------------------------------------------------------------------*
+//* Version Information: V9.99 YYYY/MM/DD <Modifier>         <Tr.Number> *
+//* Change Details:                                                      *
+//************************************************************************
+managed implementation in class zbp_i_pf911_01 unique;
+strict ( 1 );
+with draft;
+
+define behavior for ZI_PF911_01 //alias <alias_name>
+persistent table zp91101t
+draft table zp91101t_d
+lock master total etag LastUpdatedAt
+authorization master ( instance, global )
+etag master LocalLastUpdatedAt
+early numbering
+{
+  create { default function GetDefaultsForCreate; }
+  update ( features : instance );
+  delete;
+
+  field ( readonly ) Product, Plant, Subcontractor;
+//  field ( features : instance ) DateFrom;
+  field ( features : instance ) ProductForEdit,
+  PlantForEdit,
+  SubcontractorForedit;
+  //  field ( readonly : update ) Product, Plant, Subcontractor;
+  field ( readonly ) CreatedAt, CreatedBy, LastUpdatedAt, LastUpdatedBy, LocalLastUpdatedAt;
+
+  validation vldBeforeSave on save { create; update; }
+
+  determination m_determ_create on modify { create; }
+  //  determination m_determ_create on modify { create; field DateFrom; }
+
+  draft action ( features : instance ) Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare { validation vldBeforeSave; }
+
+  side effects
+  {
+    field ProductForEdit affects field ( BaseUnit, SampleQuantityUnit );
+  }
+
+  mapping for zp91101t
+    {
+      Product                 = product;
+      Plant                   = plant;
+      Subcontractor           = subcontractor;
+//      DateFrom                = date_from;
+      //      ProductForEdit          = product;
+      //      PlantForEdit            = plant;
+      //      SubcontractorForedit    = subcontractor;
+      SubcontractorStorageBin = subcontractor_storage_bin;
+      SafetyStockQuantity     = safety_stock_quantity;
+      BaseUnit                = base_unit;
+      SampleQuantity          = sample_quantity;
+      SampleQuantityUnit      = sample_quantity_unit;
+      InspectionIndexCode     = inspection_index_code;
+      //*-< ADD V1.02 (S) >-* DetailDesign V1.03
+      NotesInternal           = notes_internal;
+      //*-< ADD V1.02 (E) >-*
+      CreatedBy               = created_by;
+      CreatedAt               = created_at;
+      LastUpdatedBy           = last_updated_by;
+      LastUpdatedAt           = last_updated_at;
+      LocalLastUpdatedAt      = local_last_updated_at;
+    }
+}

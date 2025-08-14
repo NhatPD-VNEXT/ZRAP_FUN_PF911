@@ -1,0 +1,83 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: {
+    typeName: '{@i18n>SubcontractorSafetyStock}',     typeNamePlural: '{@i18n>SubcontractorSafetyStocks}',
+    title.value:  'Product',
+    description.value: 'Plant'
+  }
+}
+annotate entity ZC_PF911_01 with
+{
+  //  @UI.facet: [  { position: 10, id: 'idDataPointProduct', type: #DATAPOINT_REFERENCE, label: '{@i18n>Product}', targetQualifier: 'idDataPointProduct', purpose: #HEADER }
+  //              , { position: 20, id: 'idDataPointPlant', type: #DATAPOINT_REFERENCE, label: '{@i18n>Plant}', targetQualifier: 'idDataPointPlant', purpose: #HEADER }
+  //              , { position: 30, id: 'idDataPointSubcontractor', type: #DATAPOINT_REFERENCE, label: '{@i18n>Subcontractor}', targetQualifier: 'idDataPointSubcontractor', purpose: #HEADER }
+  //              , { position: 200, id: 'idGeneral', type: #COLLECTION, label: '{@i18n>General}', targetQualifier: 'idGeneral' }
+  //              , { position: 210, id: 'idProduct', parentId: 'idGeneral', type: #IDENTIFICATION_REFERENCE, label: '{@i18n>Product}', targetQualifier: 'idProduct' }
+  //              , { position: 220, id: 'idSafetyStock', parentId: 'idGeneral', type: #FIELDGROUP_REFERENCE, label: '{@i18n>SafetyStock}', targetQualifier: 'idSafetyStock' }
+  //              , { position: 230, id: 'idOthers', parentId: 'idGeneral', type: #FIELDGROUP_REFERENCE, label: '{@i18n>Others}', targetQualifier: 'idOthers' }
+  //              , { position: 290, id: 'idAdministrativeItems', parentId: 'idGeneral', type: #FIELDGROUP_REFERENCE, label: '{@i18n>AdministrationItems}', targetQualifier: 'idAdministrativeItems' }
+  //             ]
+
+  @UI.facet: [
+                { position: 10, id: 'idHeader', type: #FIELDGROUP_REFERENCE, targetQualifier: 'idHeader', purpose: #HEADER }
+              , { position: 200, id: 'idGeneral', type: #COLLECTION, label: '{@i18n>General}', targetQualifier: 'idGeneral' }
+              , { position: 210, id: 'idProduct', parentId: 'idGeneral', type: #IDENTIFICATION_REFERENCE, label: '{@i18n>Product}', targetQualifier: 'idProduct', hidden: #('HasDraftEntity') }
+              , { position: 220, id: 'idSafetyStock', parentId: 'idGeneral', type: #FIELDGROUP_REFERENCE, label: '{@i18n>SafetyStock}', targetQualifier: 'idSafetyStock' }
+              , { position: 230, id: 'idOthers', parentId: 'idGeneral', type: #FIELDGROUP_REFERENCE, label: '{@i18n>Others}', targetQualifier: 'idOthers' }
+              , { position: 290, id: 'idAdministrativeItems', parentId: 'idGeneral', type: #FIELDGROUP_REFERENCE, label: '{@i18n>AdministrationItems}', targetQualifier: 'idAdministrativeItems' }
+             ]
+
+  //  @UI.dataPoint: {qualifier : 'idDataPointProduct' }
+  @UI.identification: [ { qualifier: 'idProduct', position: 10, hidden: #(hideKeyField) }  ]
+  //  @UI.identification: [ { qualifier: 'idProduct', position: 10 }  ]
+  @UI.fieldGroup: [ { qualifier: 'idHeader', position: 10 }  ]
+  ProductForEdit;
+
+  //  @UI.dataPoint: {qualifier : 'idDataPointPlant' }
+  @UI.identification: [ { qualifier: 'idProduct', position: 20, hidden: #(hideKeyField) }  ]
+  //  @UI.identification: [ { qualifier: 'idProduct', position: 20 }  ]
+  @UI.fieldGroup: [ { qualifier: 'idHeader', position: 20 }  ]
+  PlantForEdit;
+
+  //  @UI.dataPoint: {qualifier : 'idDataPointSubcontractor' }
+  @UI.identification: [ { qualifier: 'idProduct', position: 30, hidden: #(hideKeyField) }  ]
+  //  @UI.identification: [ { qualifier: 'idProduct', position: 30 }  ]
+  @UI.fieldGroup: [ { qualifier: 'idHeader', position: 30 }  ]
+  SubcontractorForedit;
+
+  @UI.identification: [ { qualifier: 'idProduct', position: 30, hidden: #(hideKeyField) }  ]
+  //  @UI.identification: [ { qualifier: 'idProduct', position: 30 }  ]
+  @UI.fieldGroup: [ { qualifier: 'idHeader', position: 30 }  ]
+  DateFromForEdit;
+
+  @UI.identification: [ { qualifier: 'idProduct', position: 40 }  ]
+  productnameja;
+  @UI.identification: [ { qualifier: 'idProduct', position: 50 }  ]
+  productnameen;
+
+  @UI.fieldGroup: [ { qualifier: 'idSafetyStock', position: 10 }  ]
+  subcontractorstoragebin;
+  @UI.fieldGroup: [ { qualifier: 'idSafetyStock', position: 20 }  ]
+  safetystockquantity;
+
+
+  @UI.fieldGroup: [ { qualifier: 'idOthers', position: 10 }  ]
+  samplequantity;
+  @UI.fieldGroup: [ { qualifier: 'idOthers', position: 20 }  ]
+  samplequantityunit;
+  @UI.fieldGroup: [ { qualifier: 'idOthers', position: 30 }  ]
+  inspectionindexcode;
+  @UI.fieldGroup: [ { qualifier: 'idOthers', position: 40 }  ]
+  notesinternal;
+
+  @UI.fieldGroup: [ { qualifier: 'idAdministrativeItems', position: 10 }  ]
+  createdby;
+  @UI.fieldGroup: [ { qualifier: 'idAdministrativeItems', position: 20 }  ]
+  createdat;
+  @UI.fieldGroup: [ { qualifier: 'idAdministrativeItems', position: 30 }  ]
+  lastupdatedby;
+  @UI.fieldGroup: [ { qualifier: 'idAdministrativeItems', position: 40 }  ]
+  lastupdatedat;
+  @UI.fieldGroup: [ { qualifier: 'idAdministrativeItems', position: 50 }  ]
+  locallastupdatedat;
+}

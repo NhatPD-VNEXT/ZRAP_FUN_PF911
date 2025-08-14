@@ -1,0 +1,4 @@
+@EndUserText.label: 'ZSD_FUN_PF911'
+define service ZSD_FUN_PF911 {
+  expose ZC_PF911_01;
+}
