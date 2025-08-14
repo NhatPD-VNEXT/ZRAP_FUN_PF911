@@ -79,5 +79,6 @@ annotate entity ZC_PF911_01 with
   @UI.fieldGroup: [ { qualifier: 'idAdministrativeItems', position: 40 }  ]
   lastupdatedat;
   @UI.fieldGroup: [ { qualifier: 'idAdministrativeItems', position: 50 }  ]
+  @UI.hidden: true
   locallastupdatedat;
 }
